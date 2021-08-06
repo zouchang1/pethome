@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zouchang.org.mapper.DepartmentMapper">
+    <!--//保存对象-->
+    <!--void save(Department department);-->
+    <insert id="save" parameterType="cn.zouchang.org.domain.Department">
+        insert into t_department(
+        sn,
+        name,
+        dirPath,
+        state,
+        manager_id,
+        parent_id
+
+        )values(
+        #{sn},
+        #{name},
+        #{dirPath},
+        #{state},
+        #{manager_id},
+        #{parent_id}
+
+        )
+
+
+    </insert>
+
+    <!--//移除一个对象-->
+    <!--void remove(Long id);-->
+    <delete id="remove" parameterType="long">
+        delete from t_department where id = #{id}
+    </delete>
+
+    <!--//更新一个对象-->
+    <!--void update(Department department);-->
+    <update id="update" parameterType="cn.zouchang.org.domain.Department">
+        update t_department set
+        sn=#{sn},
+        name=#{name},
+        dirPath=#{dirPath},
+        state=#{state},
+        manager_id=#{manager_id},
+        parent_id=#{parent_id}
+        where id = #{id}
+
+    </update>
+
+    <!--//加载一个对象-->
+    <!--Department loadById(Long id);-->
+    <select id="loadById" parameterType="long" resultType="cn.zouchang.org.domain.Department">
+        select * from t_department where id = #{id}
+    </select>
+    <!--//加载所有对象-->
+    <!--List<Department> loadAll();-->
+    <select id="loadAll" resultType="cn.zouchang.org.domain.Department">
+        select * from t_department
+    </select>
+
+    <!--//分页相关的，查询总数，查询当前页数据-->
+    <!--Long queryCount(DepartmentQuery query);-->
+    <select id="queryCount" parameterType="cn.zouchang.org.query.DepartmentQuery" resultType="long">
+        select count(*) from t_department
+    </select>
+    <!--List<Department> queryData(DepartmentQuery query);-->
+    <select id="queryData" parameterType="cn.zouchang.org.query.DepartmentQuery" resultType="cn.zouchang.org.domain.Department">
+        select * from t_department
+        limit #{begin},#{pageSize}
+    </select>
+
+</mapper>
